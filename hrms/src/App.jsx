@@ -100,7 +100,7 @@ function App() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      {user && <Navbar />}
+      {user && <Navbar logout={logout} />}
       {user && <Sidebar />}
       <Box component="main" sx={{ flexGrow: 1, p: 3, mt: user ? 8 : 0, ml: user ? 30 : 0, minWidth: 0 }}>
         <Routes>
