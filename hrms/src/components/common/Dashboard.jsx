@@ -18,7 +18,12 @@ function Dashboard({ title, items }) {
                 height: 140,
               }}
             >
-              <Typography component="h2" variant="h6" color="primary" gutterBottom>
+              <Typography
+                component="h2"
+                variant="h6"
+                color="primary"
+                gutterBottom
+              >
                 {item.title}
               </Typography>
               <Typography component="p" variant="h4">

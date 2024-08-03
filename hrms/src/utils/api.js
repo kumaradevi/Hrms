@@ -34,7 +34,9 @@ api.interceptors.response.use(
 
       try {
         const refreshToken = localStorage.getItem('refreshToken');
-        const response = await axios.post(`${API_BASE_URL}/auth/refresh`, { refreshToken });
+        const response = await axios.post(`${API_BASE_URL}/auth/refresh`, {
+          refreshToken,
+        });
         const { token } = response.data;
 
         localStorage.setItem('token', token);
@@ -51,12 +53,15 @@ api.interceptors.response.use(
   }
 );
 
-export const login = (email, password) => api.post('/auth/login', { email, password });
+export const login = (email, password) =>
+  api.post('/auth/login', { email, password });
 export const register = (userData) => api.post('/auth/register', userData);
 export const getEmployees = () => api.get('/employees');
 export const getEmployee = (id) => api.get(`/employees/${id}`);
-export const createEmployee = (employeeData) => api.post('/employees', employeeData);
-export const updateEmployee = (id, employeeData) => api.put(`/employees/${id}`, employeeData);
+export const createEmployee = (employeeData) =>
+  api.post('/employees', employeeData);
+export const updateEmployee = (id, employeeData) =>
+  api.put(`/employees/${id}`, employeeData);
 export const deleteEmployee = (id) => api.delete(`/employees/${id}`);
 
 // Add more API calls as needed for other features (leave management, payroll, etc.)

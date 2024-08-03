@@ -1,4 +1,3 @@
-
 // import { AuthProvider } from './contexts/AuthContext';
 // import { useAuth } from './hooks/useAuth';
 
@@ -50,9 +49,6 @@
 
 // export default App;
 
-
-
-
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
@@ -102,35 +98,119 @@ function App() {
     <Box sx={{ display: 'flex' }}>
       {user && <Navbar logout={logout} />}
       {user && <Sidebar />}
-      <Box component="main" sx={{ flexGrow: 1, p: 3, mt: user ? 8 : 0, ml: user ? 30 : 0, minWidth: 0 }}>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          mt: user ? 8 : 0,
+          ml: user ? 30 : 0,
+          minWidth: 0,
+        }}
+      >
         <Routes>
-          <Route path="/login" element={user ? <Navigate to="/" /> : <Login login={login} />} />
-          <Route path="/" element={user ? <MainDashboard /> : <Navigate to="/login" />} />
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/" /> : <Login login={login} />}
+          />
+          <Route
+            path="/"
+            element={user ? <MainDashboard /> : <Navigate to="/login" />}
+          />
           <Route path="/register" element={<Register />} />
           <Route path="/password-reset" element={<PasswordReset />} />
-          <Route path="/password-reset-confirmation" element={<PasswordResetConfirmation />} />
-          <Route path="/employees" element={user ? <EmployeeDirectory /> : <Navigate to="/login" />} />
-          <Route path="/employees/:id" element={user ? <EmployeeProfile /> : <Navigate to="/login" />} />
-          <Route path="/employees/add" element={user ? <AddEditEmployee /> : <Navigate to="/login" />} />
-          <Route path="/employees/edit/:id" element={user ? <AddEditEmployee /> : <Navigate to="/login" />} />
-          <Route path="/departments" element={user ? <DepartmentManagement /> : <Navigate to="/login" />} />
-          <Route path="/leave/request" element={user ? <LeaveRequest /> : <Navigate to="/login" />} />
-          <Route path="/leave/approval" element={user ? <LeaveApproval /> : <Navigate to="/login" />} />
-          <Route path="/leave/history" element={user ? <LeaveHistory /> : <Navigate to="/login" />} />
-          <Route path="/payroll" element={user ? <PayrollDashboard /> : <Navigate to="/login" />} />
-          <Route path="/payroll/records" element={user ? <PayrollRecords /> : <Navigate to="/login" />} />
-          <Route path="/payroll/report" element={user ? <PayrollReport /> : <Navigate to="/login" />} />
-          <Route path="/performance/review" element={user ? <PerformanceReview /> : <Navigate to="/login" />} />
-          <Route path="/performance/analytics" element={user ? <PerformanceAnalytics /> : <Navigate to="/login" />} />
-          <Route path="/reports/employees" element={user ? <EmployeeReports /> : <Navigate to="/login" />} />
-          <Route path="/reports/leave" element={user ? <LeaveReports /> : <Navigate to="/login" />} />
-          <Route path="/reports/payroll" element={user ? <PayrollReports /> : <Navigate to="/login" />} />
-          <Route path="/reports/performance" element={user ? <PerformanceReports /> : <Navigate to="/login" />} />
-          <Route path="/settings/user" element={user ? <UserSettings /> : <Navigate to="/login" />} />
-          <Route path="/settings/admin" element={user ? <AdminSettings /> : <Navigate to="/login" />} />
-          <Route path="/help" element={user ? <HelpCenter /> : <Navigate to="/login" />} />
-          <Route path="/documentation" element={user ? <Documentation /> : <Navigate to="/login" />} />
-          <Route path="/notifications" element={user ? <NotificationCenter /> : <Navigate to="/login" />} />
+          <Route
+            path="/password-reset-confirmation"
+            element={<PasswordResetConfirmation />}
+          />
+          <Route
+            path="/employees"
+            element={user ? <EmployeeDirectory /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/employees/:id"
+            element={user ? <EmployeeProfile /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/employees/add"
+            element={user ? <AddEditEmployee /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/employees/edit/:id"
+            element={user ? <AddEditEmployee /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/departments"
+            element={user ? <DepartmentManagement /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/leave/request"
+            element={user ? <LeaveRequest /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/leave/approval"
+            element={user ? <LeaveApproval /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/leave/history"
+            element={user ? <LeaveHistory /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/payroll"
+            element={user ? <PayrollDashboard /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/payroll/records"
+            element={user ? <PayrollRecords /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/payroll/report"
+            element={user ? <PayrollReport /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/performance/review"
+            element={user ? <PerformanceReview /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/performance/analytics"
+            element={user ? <PerformanceAnalytics /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/reports/employees"
+            element={user ? <EmployeeReports /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/reports/leave"
+            element={user ? <LeaveReports /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/reports/payroll"
+            element={user ? <PayrollReports /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/reports/performance"
+            element={user ? <PerformanceReports /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/settings/user"
+            element={user ? <UserSettings /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/settings/admin"
+            element={user ? <AdminSettings /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/help"
+            element={user ? <HelpCenter /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/documentation"
+            element={user ? <Documentation /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/notifications"
+            element={user ? <NotificationCenter /> : <Navigate to="/login" />}
+          />
           <Route path="/error" element={<ErrorPage />} />
           <Route path="/maintenance" element={<MaintenancePage />} />
         </Routes>

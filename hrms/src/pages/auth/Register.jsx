@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Typography, Container, TextField, Button, Box, Alert } from '@mui/material';
+import {
+  Typography,
+  Container,
+  TextField,
+  Button,
+  Box,
+  Alert,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 
 function Register() {

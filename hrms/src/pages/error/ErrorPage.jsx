@@ -20,7 +20,8 @@ function ErrorPage() {
         Oops! Page not found.
       </Typography>
       <Typography variant="body1" gutterBottom>
-        The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+        The page you are looking for might have been removed, had its name
+        changed, or is temporarily unavailable.
       </Typography>
       <Button component={Link} to="/" variant="contained" sx={{ mt: 2 }}>
         Go to Homepage

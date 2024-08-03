@@ -3,10 +3,31 @@ import { Typography, Box, Button } from '@mui/material';
 import CustomTable from '../../components/common/Table';
 
 function LeaveReports() {
-  const headers = ['Employee', 'Leave Type', 'Start Date', 'End Date', 'Status', 'Days Taken'];
+  const headers = [
+    'Employee',
+    'Leave Type',
+    'Start Date',
+    'End Date',
+    'Status',
+    'Days Taken',
+  ];
   const data = [
-    { employee: 'John Doe', leaveType: 'Vacation', startDate: '2023-07-01', endDate: '2023-07-05', status: 'Approved', daysTaken: 5 },
-    { employee: 'Jane Smith', leaveType: 'Sick', startDate: '2023-07-10', endDate: '2023-07-12', status: 'Approved', daysTaken: 3 },
+    {
+      employee: 'John Doe',
+      leaveType: 'Vacation',
+      startDate: '2023-07-01',
+      endDate: '2023-07-05',
+      status: 'Approved',
+      daysTaken: 5,
+    },
+    {
+      employee: 'Jane Smith',
+      leaveType: 'Sick',
+      startDate: '2023-07-10',
+      endDate: '2023-07-12',
+      status: 'Approved',
+      daysTaken: 3,
+    },
   ];
 
   return (

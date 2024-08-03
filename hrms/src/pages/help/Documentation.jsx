@@ -4,40 +4,36 @@ import { Typography, Box, List, ListItem, ListItemText } from '@mui/material';
 function Documentation() {
   const documentationSections = [
     {
-      title: "Getting Started",
-      items: [
-        "System Requirements",
-        "Installation Guide",
-        "First-time Login"
-      ]
+      title: 'Getting Started',
+      items: ['System Requirements', 'Installation Guide', 'First-time Login'],
     },
     {
-      title: "User Guide",
+      title: 'User Guide',
       items: [
-        "Dashboard Overview",
-        "Employee Management",
-        "Leave Management",
-        "Payroll Processing",
-        "Performance Reviews"
-      ]
+        'Dashboard Overview',
+        'Employee Management',
+        'Leave Management',
+        'Payroll Processing',
+        'Performance Reviews',
+      ],
     },
     {
-      title: "Administrator Guide",
+      title: 'Administrator Guide',
       items: [
-        "System Configuration",
-        "User Management",
-        "Access Control",
-        "Data Backup and Recovery"
-      ]
+        'System Configuration',
+        'User Management',
+        'Access Control',
+        'Data Backup and Recovery',
+      ],
     },
     {
-      title: "Troubleshooting",
+      title: 'Troubleshooting',
       items: [
-        "Common Issues and Solutions",
-        "Error Message Reference",
-        "Contacting Support"
-      ]
-    }
+        'Common Issues and Solutions',
+        'Error Message Reference',
+        'Contacting Support',
+      ],
+    },
   ];
 
   return (

@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Typography, Container, TextField, Button, Box, Alert } from '@mui/material';
+import {
+  Typography,
+  Container,
+  TextField,
+  Button,
+  Box,
+  Alert,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 function Login({ login }) {
@@ -24,7 +31,14 @@ function Login({ login }) {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Box
+        sx={{
+          mt: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>

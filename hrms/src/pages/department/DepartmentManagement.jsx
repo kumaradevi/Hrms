@@ -5,8 +5,20 @@ import CustomTable from '../../components/common/Table';
 function DepartmentManagement() {
   const headers = ['ID', 'Name', 'Manager', 'Employee Count', 'Actions'];
   const data = [
-    { id: 1, name: 'IT', manager: 'John Doe', employeeCount: 15, actions: 'Edit' },
-    { id: 2, name: 'HR', manager: 'Jane Smith', employeeCount: 8, actions: 'Edit' },
+    {
+      id: 1,
+      name: 'IT',
+      manager: 'John Doe',
+      employeeCount: 15,
+      actions: 'Edit',
+    },
+    {
+      id: 2,
+      name: 'HR',
+      manager: 'Jane Smith',
+      employeeCount: 8,
+      actions: 'Edit',
+    },
   ];
 
   return (

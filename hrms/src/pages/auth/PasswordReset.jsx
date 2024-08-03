@@ -3,9 +3,7 @@ import { Typography, Container } from '@mui/material';
 import Form from '../../components/common/Form';
 
 function PasswordReset() {
-  const fields = [
-    { name: 'email', label: 'Email Address', type: 'email' },
-  ];
+  const fields = [{ name: 'email', label: 'Email Address', type: 'email' }];
 
   const handleSubmit = (data) => {
     console.log('Password reset request:', data);

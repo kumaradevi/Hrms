@@ -5,8 +5,22 @@ import CustomTable from '../../components/common/Table';
 function EmployeeDirectory() {
   const headers = ['ID', 'Name', 'Department', 'Position', 'Email', 'Actions'];
   const data = [
-    { id: 1, name: 'John Doe', department: 'IT', position: 'Developer', email: 'john@example.com', actions: 'Edit' },
-    { id: 2, name: 'Jane Smith', department: 'HR', position: 'Manager', email: 'jane@example.com', actions: 'Edit' },
+    {
+      id: 1,
+      name: 'John Doe',
+      department: 'IT',
+      position: 'Developer',
+      email: 'john@example.com',
+      actions: 'Edit',
+    },
+    {
+      id: 2,
+      name: 'Jane Smith',
+      department: 'HR',
+      position: 'Manager',
+      email: 'jane@example.com',
+      actions: 'Edit',
+    },
   ];
 
   return (

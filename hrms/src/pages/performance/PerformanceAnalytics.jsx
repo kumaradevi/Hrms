@@ -1,6 +1,15 @@
 import React from 'react';
 import { Typography, Box, Paper, Grid } from '@mui/material';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 
 const data = [
   { name: 'Jan', avgRating: 3.5 },
@@ -40,9 +49,7 @@ function PerformanceAnalytics() {
             <Typography variant="h6" gutterBottom>
               Performance Summary
             </Typography>
-            <Typography variant="body1">
-              Overall average rating: 3.9
-            </Typography>
+            <Typography variant="body1">Overall average rating: 3.9</Typography>
             <Typography variant="body1">
               Highest performing month: May (4.2)
             </Typography>

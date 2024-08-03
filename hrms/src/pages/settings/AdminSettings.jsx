@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Typography, Container, TextField, Button, Box, Switch, FormControlLabel } from '@mui/material';
+import {
+  Typography,
+  Container,
+  TextField,
+  Button,
+  Box,
+  Switch,
+  FormControlLabel,
+} from '@mui/material';
 
 function AdminSettings() {
   const [formData, setFormData] = useState({
@@ -10,7 +18,8 @@ function AdminSettings() {
   });
 
   const handleChange = (e) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    const value =
+      e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     setFormData({ ...formData, [e.target.name]: value });
   };
 

@@ -3,10 +3,28 @@ import { Typography, Box, Button } from '@mui/material';
 import CustomTable from '../../components/common/Table';
 
 function PayrollReport() {
-  const headers = ['Department', 'Employee Count', 'Total Gross Pay', 'Total Deductions', 'Total Net Pay'];
+  const headers = [
+    'Department',
+    'Employee Count',
+    'Total Gross Pay',
+    'Total Deductions',
+    'Total Net Pay',
+  ];
   const data = [
-    { department: 'IT', employeeCount: 15, totalGrossPay: '$75,000', totalDeductions: '$15,000', totalNetPay: '$60,000' },
-    { department: 'HR', employeeCount: 8, totalGrossPay: '$48,000', totalDeductions: '$9,600', totalNetPay: '$38,400' },
+    {
+      department: 'IT',
+      employeeCount: 15,
+      totalGrossPay: '$75,000',
+      totalDeductions: '$15,000',
+      totalNetPay: '$60,000',
+    },
+    {
+      department: 'HR',
+      employeeCount: 8,
+      totalGrossPay: '$48,000',
+      totalDeductions: '$9,600',
+      totalNetPay: '$38,400',
+    },
   ];
 
   return (

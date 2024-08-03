@@ -3,10 +3,34 @@ import { Typography, Box, Button } from '@mui/material';
 import CustomTable from '../../components/common/Table';
 
 function PerformanceReports() {
-  const headers = ['Employee', 'Review Period', 'Job Knowledge', 'Work Quality', 'Attendance', 'Communication', 'Overall Rating'];
+  const headers = [
+    'Employee',
+    'Review Period',
+    'Job Knowledge',
+    'Work Quality',
+    'Attendance',
+    'Communication',
+    'Overall Rating',
+  ];
   const data = [
-    { employee: 'John Doe', reviewPeriod: 'Q2 2023', jobKnowledge: 4, workQuality: 4, attendance: 5, communication: 4, overallRating: 4.25 },
-    { employee: 'Jane Smith', reviewPeriod: 'Q2 2023', jobKnowledge: 5, workQuality: 4, attendance: 4, communication: 5, overallRating: 4.5 },
+    {
+      employee: 'John Doe',
+      reviewPeriod: 'Q2 2023',
+      jobKnowledge: 4,
+      workQuality: 4,
+      attendance: 5,
+      communication: 4,
+      overallRating: 4.25,
+    },
+    {
+      employee: 'Jane Smith',
+      reviewPeriod: 'Q2 2023',
+      jobKnowledge: 5,
+      workQuality: 4,
+      attendance: 4,
+      communication: 5,
+      overallRating: 4.5,
+    },
   ];
 
   return (
