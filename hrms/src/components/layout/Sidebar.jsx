@@ -21,6 +21,7 @@ function Sidebar() {
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
+          marginTop: '65px',
         },
       }}
       variant="permanent"
