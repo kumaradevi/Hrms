@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
-import {
-  Typography,
-  Container,
-  TextField,
-  Button,
-  Box,
-  Alert,
-} from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Typography, Container, TextField, Button, Box, Alert } from '@mui/material';
+import { Link,  useNavigate } from 'react-router-dom';
+
 
 function Register() {
+  const navigate=useNavigate()
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -31,7 +26,10 @@ function Register() {
       setError('Passwords do not match');
       return;
     }
-
+      if(formData.firstName && formData.email && formData.password && formData.confirmPassword){
+     
+       navigate("/login")
+      }
     // Here you would typically make an API call to register the user
     console.log('Registration data:', formData);
     // Implement registration logic here
@@ -82,6 +80,7 @@ function Register() {
             id="email"
             label="Email Address"
             name="email"
+            type="email"
             autoComplete="email"
             value={formData.email}
             onChange={handleChange}
@@ -115,8 +114,10 @@ function Register() {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={handleSubmit}
           >
             Register
+            
           </Button>
           <Box sx={{ textAlign: 'center' }}>
             <Link to="/login" variant="body2">
