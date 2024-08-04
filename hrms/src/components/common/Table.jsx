@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
+import Stack from '@mui/material/Stack';
 
 function CustomTable({ headers, data }) {
   return (
@@ -22,10 +15,16 @@ function CustomTable({ headers, data }) {
         </TableHead>
         <TableBody>
           {data.map((row, index) => (
-            <TableRow key={index}>
+            <TableRow key={index}  >
               {Object.values(row).map((cell, cellIndex) => (
-                <TableCell key={cellIndex}>{cell}</TableCell>
+                <TableCell key={cellIndex}>{cell}
+                </TableCell>
               ))}
+              <Stack direction={'row'} gap={4} sx={{justifyContent:"center",alignItems:"center",mt:1}}>
+              <Button variant='contained'>Edit</Button>
+            
+              <Button variant='contained'>delete</Button>
+              </Stack>
             </TableRow>
           ))}
         </TableBody>
