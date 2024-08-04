@@ -20,7 +20,7 @@ function UserSettings() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" >
       <Typography component="h1" variant="h5">
         User Settings
       </Typography>

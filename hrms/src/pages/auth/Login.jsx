@@ -62,6 +62,7 @@ function Login({ login }) {
           >
             Sign In
           </Button>
+          <Typography>Don't have an account?<Button href='/Register'>Register</Button>here</Typography>
         </Box>
       </Box>
     </Container>
