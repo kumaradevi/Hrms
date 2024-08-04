@@ -1,7 +1,12 @@
 import React from 'react';
-import { Typography, Button, Box } from '@mui/material';
+import { Typography, Button, Box, styled } from '@mui/material';
 import CustomTable from '../../components/common/Table';
+import { Link } from 'react-router-dom';
 
+ const StyledLink=styled(Link)({
+  textDecoration:"none",
+  color:"white"
+ })
 function EmployeeDirectory() {
   const headers = ['ID', 'Name', 'Department', 'Position', 'Email', 'Actions'];
   const data = [
@@ -28,8 +33,8 @@ function EmployeeDirectory() {
       <Typography variant="h4" gutterBottom>
         Employee Directory
       </Typography>
-      <Button variant="contained" color="primary" sx={{ mb: 2 }}>
-        Add New Employee
+      <Button variant="contained" color="primary" sx={{ mb: 4,mt:2 }}>
+       <StyledLink to={"/employees/add"} >Add New Employee</StyledLink> 
       </Button>
       <CustomTable headers={headers} data={data} />
     </Box>

@@ -26,7 +26,7 @@ function DepartmentManagement() {
       <Typography variant="h4" gutterBottom>
         Department Management
       </Typography>
-      <Button variant="contained" color="primary" sx={{ mb: 2 }}>
+      <Button variant="contained" color="primary" sx={{ mb: 4 ,mt:2}}>
         Add New Department
       </Button>
       <CustomTable headers={headers} data={data} />
