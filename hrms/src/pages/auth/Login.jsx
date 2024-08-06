@@ -124,7 +124,7 @@ function Login({ login }) {
             <Link
               component="button"
               variant="body2"
-              onClick={() => navigate('/reset-password')}
+              onClick={() => navigate('/password-reset')}
             >
               Forgot password?
             </Link>
