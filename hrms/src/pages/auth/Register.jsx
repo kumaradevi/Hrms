@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Typography, Container, TextField, Button, Box, Alert } from '@mui/material';
+import { Typography, Container, TextField, Button, Box, Alert,Paper,useTheme,useMediaQuery } from '@mui/material';
 import { Link,  useNavigate } from 'react-router-dom';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 
 function Register() {
-  const navigate=useNavigate()
+  const navigate=useNavigate();
+  const theme = useTheme();
+
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -27,27 +31,27 @@ function Register() {
       return;
     }
       if(formData.firstName && formData.email && formData.password && formData.confirmPassword){
-     
-       navigate("/login")
+      console.log('Registration data:',formData);
+      navigate("/login")
       }
-    // Here you would typically make an API call to register the user
-    console.log('Registration data:', formData);
-    // Implement registration logic here
   };
 
   return (
     <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
+      <Paper 
+        elevation={3} 
+        sx={{ 
+          marginTop:1,
+          display:'flex',
+          flexDirection:'column',
+          alignItems:'center',
+          padding: theme.spacing(1),
+          backgroundColor: '#f8f9fa',
+          borderRadius: theme.spacing(2),
+          }}
       >
-        <Typography component="h1" variant="h5">
-          Register
-        </Typography>
+
+      
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           {error && <Alert severity="error">{error}</Alert>}
           <TextField
@@ -125,7 +129,7 @@ function Register() {
             </Link>
           </Box>
         </Box>
-      </Box>
+      </Paper>
     </Container>
   );
 }
