@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Container, TextField, Button, Box, Alert, Paper, useTheme, useMediaQuery } from '@mui/material';
+import { Typography, Container, TextField, Button, Box, Alert, Paper, useTheme, useMediaQuery, Grid } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
@@ -40,7 +40,7 @@ function Register() {
       <Paper
         elevation={3}
         sx={{
-          marginTop: 1,
+          marginTop: 3,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -81,43 +81,49 @@ function Register() {
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%' }}>
           {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="firstName"
-            label="First Name"
-            name="firstName"
-            autoComplete="given-name"
-            autoFocus
-            value={formData.firstName}
-            onChange={handleChange}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': { borderColor: 'primary.main' },
-                '&:hover fieldset': { borderColor: 'primary.dark' },
-                '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
-              },
-            }}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="lastName"
-            label="Last Name"
-            name="lastName"
-            autoComplete="family-name"
-            value={formData.lastName}
-            onChange={handleChange}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': { borderColor: 'primary.main' },
-                '&:hover fieldset': { borderColor: 'primary.dark' },
-                '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
-              },
-            }}
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                name="firstName"
+                autoComplete="given-name"
+                autoFocus
+                value={formData.firstName}
+                onChange={handleChange}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: 'primary.main' },
+                    '&:hover fieldset': { borderColor: 'primary.dark' },
+                    '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
+                  },
+                }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="family-name"
+                value={formData.lastName}
+                onChange={handleChange}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: 'primary.main' },
+                    '&:hover fieldset': { borderColor: 'primary.dark' },
+                    '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
+                  },
+                }}
+              />
+            </Grid>
+          </Grid>
           <TextField
             margin="normal"
             required
@@ -183,8 +189,8 @@ function Register() {
           >
             Register
           </Button>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, flexWrap: 'wrap' }}>
-            <Typography variant="body2" sx={{ mr: 1 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0.5, flexWrap: 'wrap' }}>
+            <Typography variant="body2" sx={{ mr: 1 , mt: 0.5 }}>
               Already have an account?
             </Typography>
             <Link to="/login" style={{ textDecoration: 'none' }}>

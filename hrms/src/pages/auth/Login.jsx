@@ -127,8 +127,8 @@ function Login({ login }) {
           >
             Sign In
           </Button>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, flexWrap: 'wrap' }}>
-            <Typography variant="body2" sx={{ mr: 1 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0.5, flexWrap: 'wrap' }}>
+            <Typography variant="body2" sx={{ mr: 1 , mt: 0.5 }}>
               Don't have an account?
             </Typography>
             <Button href='/Register' variant="text" size="small">
