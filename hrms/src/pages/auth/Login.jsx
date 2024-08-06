@@ -9,6 +9,7 @@ import {
   Container,
   useTheme,
   useMediaQuery,
+  Link,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
@@ -119,6 +120,15 @@ function Login({ login }) {
               },
             }}
           />
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%', mt: 1 }}>
+            <Link
+              component="button"
+              variant="body2"
+              onClick={() => navigate('/reset-password')}
+            >
+              Forgot password?
+            </Link>
+          </Box>
           <Button
             type="submit"
             fullWidth
