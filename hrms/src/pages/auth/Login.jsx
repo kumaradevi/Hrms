@@ -83,27 +83,8 @@ function Login({ login }) {
         >
           Sign In
         </Typography>
-
-
-      </Paper>
-
-
-
-
-{/*       
-      <Box
-        sx={{
-          mt: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        {error && <Alert severity="error">{error}</Alert>}
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        {error && <Alert severity="error" sx={{ mt: 1, mb: 2, width: '100%' }}>{error}</Alert>}
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%' }}>
           <TextField
             margin="normal"
             required
@@ -115,6 +96,13 @@ function Login({ login }) {
             autoFocus
             value={formData.email}
             onChange={handleChange}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: 'primary.main' },
+                '&:hover fieldset': { borderColor: 'primary.dark' },
+                '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
+              },
+            }}
           />
           <TextField
             margin="normal"
@@ -127,18 +115,27 @@ function Login({ login }) {
             autoComplete="current-password"
             value={formData.password}
             onChange={handleChange}
-          />
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: 'primary.main' },
+                '&:hover fieldset': { borderColor: 'primary.dark' },
+                '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
+              },
+            }}
+            />
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2, borderRadius: 2 }}
           >
             Sign In
           </Button>
-          <Typography>Don't have an account?<Button href='/Register'>Register</Button>here</Typography>
+
+
+
         </Box>
-      </Box> */}
+      </Paper>
     </Container>
   );
 }
