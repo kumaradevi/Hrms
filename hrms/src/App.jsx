@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Box, createTheme, styled, ThemeProvider } from "@mui/material";
+import { auth } from "./pages/auth/config";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
 import Navbar from "./components/layout/Navbar";
 import Sidebar from "./components/layout/Sidebar";
 import Login from "./pages/auth/Login";
@@ -60,6 +63,14 @@ function App() {
   const logout = () => {
     setUser(null);
   };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.log("Auth state changed:", currentUser);
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

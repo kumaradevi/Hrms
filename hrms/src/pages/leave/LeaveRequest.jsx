@@ -17,7 +17,7 @@ function LeaveRequest() {
 
   return (
     <Container component="main" maxWidth="sm">
-      <Typography component="h1" variant="h5">
+      <Typography component="h1" variant="h5" >
         Leave Request
       </Typography>
       <Form fields={fields} onSubmit={handleSubmit} />

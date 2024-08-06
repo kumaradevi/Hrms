@@ -10,7 +10,7 @@ function Form({ fields, onSubmit }) {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt:1}} >
       {fields.map((field) => (
         <TextField
           key={field.name}
@@ -19,9 +19,12 @@ function Form({ fields, onSubmit }) {
           fullWidth
           id={field.name}
           label={field.label}
+         
           name={field.name}
           autoComplete={field.name}
           type={field.type || 'text'}
+          
+          
         />
       ))}
       <Button
