@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { Typography, Container, TextField, Button, Box, Alert,Paper,useTheme,useMediaQuery } from '@mui/material';
-import { Link,  useNavigate } from 'react-router-dom';
+import { Typography, Container, TextField, Button, Box, Alert, Paper, useTheme, useMediaQuery } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
-
 function Register() {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -32,26 +29,27 @@ function Register() {
       setError('Passwords do not match');
       return;
     }
-      if(formData.firstName && formData.email && formData.password && formData.confirmPassword){
-      console.log('Registration data:',formData);
-      navigate("/login")
-      }
+    if (formData.firstName && formData.email && formData.password && formData.confirmPassword) {
+      console.log('Registration data:', formData);
+      navigate("/login");
+    }
   };
 
   return (
     <Container component="main" maxWidth="xs">
-      <Paper 
-        elevation={3} 
-        sx={{ 
-          marginTop:1,
-          display:'flex',
-          flexDirection:'column',
-          alignItems:'center',
+      <Paper
+        elevation={3}
+        sx={{
+          marginTop: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
           padding: theme.spacing(1),
           backgroundColor: '#f8f9fa',
           borderRadius: theme.spacing(2),
-          }}
+        }}
       >
+        <PersonAddIcon sx={{ fontSize: 40, color: 'primary.main', mb: 1 }} />
         <Typography
           component="h1"
           variant={isMobile ? "h6" : "h5"}
@@ -81,10 +79,8 @@ function Register() {
         >
           Register
         </Typography>
-
-      
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          {error && <Alert severity="error">{error}</Alert>}
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%' }}>
+          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
           <TextField
             margin="normal"
             required
@@ -96,6 +92,13 @@ function Register() {
             autoFocus
             value={formData.firstName}
             onChange={handleChange}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: 'primary.main' },
+                '&:hover fieldset': { borderColor: 'primary.dark' },
+                '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
+              },
+            }}
           />
           <TextField
             margin="normal"
@@ -107,6 +110,13 @@ function Register() {
             autoComplete="family-name"
             value={formData.lastName}
             onChange={handleChange}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: 'primary.main' },
+                '&:hover fieldset': { borderColor: 'primary.dark' },
+                '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
+              },
+            }}
           />
           <TextField
             margin="normal"
@@ -119,6 +129,13 @@ function Register() {
             autoComplete="email"
             value={formData.email}
             onChange={handleChange}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: 'primary.main' },
+                '&:hover fieldset': { borderColor: 'primary.dark' },
+                '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
+              },
+            }}
           />
           <TextField
             margin="normal"
@@ -131,6 +148,13 @@ function Register() {
             autoComplete="new-password"
             value={formData.password}
             onChange={handleChange}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: 'primary.main' },
+                '&:hover fieldset': { borderColor: 'primary.dark' },
+                '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
+              },
+            }}
           />
           <TextField
             margin="normal"
@@ -143,20 +167,30 @@ function Register() {
             autoComplete="new-password"
             value={formData.confirmPassword}
             onChange={handleChange}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: 'primary.main' },
+                '&:hover fieldset': { borderColor: 'primary.dark' },
+                '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
+              },
+            }}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={handleSubmit}
+            sx={{ mt: 3, mb: 2, borderRadius: 2 }}
           >
             Register
-            
           </Button>
-          <Box sx={{ textAlign: 'center' }}>
-            <Link to="/login" variant="body2">
-              Already have an account? Sign in
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, flexWrap: 'wrap' }}>
+            <Typography variant="body2" sx={{ mr: 1 }}>
+              Already have an account?
+            </Typography>
+            <Link to="/login" style={{ textDecoration: 'none' }}>
+              <Button variant="text" size="small">
+                Sign in here
+              </Button>
             </Link>
           </Box>
         </Box>
