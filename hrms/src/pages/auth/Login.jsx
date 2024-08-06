@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
 import {
   Typography,
-  Container,
   TextField,
   Button,
   Box,
   Alert,
+  Paper,
+  Container,
   useTheme,
   useMediaQuery,
-  Paper,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-
 
 function Login({ login }) {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoint.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -38,8 +37,7 @@ function Login({ login }) {
 
   return (
     <Container component="main" maxWidth="xs">
-
-    <Paper 
+      <Paper 
         elevation={3}
         sx={{
           marginTop: 8,
@@ -51,8 +49,7 @@ function Login({ login }) {
           borderRadius: theme.spacing(2),
         }}
       >
-        <PersonOutlineIcon sx={{fontSize:40,color:'primary.main',mb:1}}/>
-  
+        <PersonOutlineIcon sx={{ fontSize: 40, color: 'primary.main', mb: 1 }} />
         <Typography
           component="h1"
           variant={isMobile ? "h6" : "h5"}
@@ -71,7 +68,6 @@ function Login({ login }) {
         >
           HR Management System
         </Typography>
-
         <Typography 
           component="h2" 
           variant="h6" 
@@ -122,7 +118,7 @@ function Login({ login }) {
                 '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
               },
             }}
-            />
+          />
           <Button
             type="submit"
             fullWidth
@@ -131,9 +127,14 @@ function Login({ login }) {
           >
             Sign In
           </Button>
-
-
-
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, flexWrap: 'wrap' }}>
+            <Typography variant="body2" sx={{ mr: 1 }}>
+              Don't have an account?
+            </Typography>
+            <Button href='/Register' variant="text" size="small">
+              Register here
+            </Button>
+          </Box>
         </Box>
       </Paper>
     </Container>
