@@ -7,6 +7,8 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 function Register() {
   const navigate=useNavigate();
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
 
 
   const [formData, setFormData] = useState({
@@ -50,6 +52,35 @@ function Register() {
           borderRadius: theme.spacing(2),
           }}
       >
+        <Typography
+          component="h1"
+          variant={isMobile ? "h6" : "h5"}
+          sx={{
+            fontWeight: 'bold',
+            color: 'primary.main',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            textAlign: 'center',
+            mb: 2,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxWidth: '100%',
+          }}
+        >
+          HR Management System
+        </Typography>
+        <Typography 
+          component="h2" 
+          variant="h6" 
+          sx={{ 
+            color: 'text.secondary',
+            fontWeight: 'medium',
+            mb: 2,
+          }}
+        >
+          Register
+        </Typography>
 
       
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
