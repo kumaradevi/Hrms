@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
-import { Typography, Container, TextField, Button, Box, Alert, Paper, useTheme, useMediaQuery, Grid } from '@mui/material';
+import { Typography, Container, TextField, Button, Box, Alert, Paper, useTheme, useMediaQuery, Grid, MenuItem, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import BadgeIcon from '@mui/icons-material/Badge';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Register() {
   const navigate = useNavigate();
@@ -12,10 +17,14 @@ function Register() {
     firstName: '',
     lastName: '',
     email: '',
+    role: '',
+    profilePictureUrl: '',
     password: '',
     confirmPassword: '',
   });
   const [error, setError] = useState('');
+  const [openUrlDialog, setOpenUrlDialog] = useState(false);
+  const [tempUrl, setTempUrl] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,11 +38,37 @@ function Register() {
       setError('Passwords do not match');
       return;
     }
-    if (formData.firstName && formData.email && formData.password && formData.confirmPassword) {
+    if (formData.firstName && formData.lastName && formData.email && formData.role && formData.password && formData.confirmPassword) {
       console.log('Registration data:', formData);
       navigate("/login");
     }
   };
+
+  const handleUrlDialogOpen = () => {
+    setOpenUrlDialog(true);
+    setTempUrl(formData.profilePictureUrl);
+  };
+
+  const handleUrlDialogClose = () => {
+    setOpenUrlDialog(false);
+  };
+
+  const handleUrlConfirm = () => {
+    setFormData({ ...formData, profilePictureUrl: tempUrl });
+    setOpenUrlDialog(false);
+  };
+
+  const handleUrlDelete = () => {
+    setFormData({ ...formData, profilePictureUrl: '' });
+    setTempUrl('');
+    setOpenUrlDialog(false);
+  };
+
+  const roles = [
+    { value: 'admin', label: 'Admin', icon: <AdminPanelSettingsIcon /> },
+    { value: 'employee', label: 'Employee', icon: <BadgeIcon /> },
+    { value: 'manager', label: 'Manager', icon: <SupervisorAccountIcon /> },
+  ];
 
   return (
     <Container component="main" maxWidth="xs">
@@ -143,6 +178,45 @@ function Register() {
               },
             }}
           />
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="role"
+                select
+                label="Role"
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: 'primary.main' },
+                    '&:hover fieldset': { borderColor: 'primary.dark' },
+                    '&.Mui-focused fieldset': { borderColor: 'primary.dark' },
+                  },
+                }}
+              >
+                {roles.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.icon} {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                variant="outlined"
+                startIcon={<AddPhotoAlternateIcon />}
+                onClick={handleUrlDialogOpen}
+                fullWidth
+                sx={{ mt: 2, height: '56px' }}
+              >
+                {formData.profilePictureUrl ? 'Change Profile URL' : 'Add Profile URL'}
+              </Button>
+            </Grid>
+          </Grid>
           <TextField
             margin="normal"
             required
@@ -201,6 +275,30 @@ function Register() {
           </Box>
         </Box>
       </Paper>
+      
+      <Dialog open={openUrlDialog} onClose={handleUrlDialogClose}>
+        <DialogTitle>Add Profile Picture URL</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="profilePictureUrl"
+            label="Profile Picture URL"
+            type="url"
+            fullWidth
+            variant="standard"
+            value={tempUrl}
+            onChange={(e) => setTempUrl(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleUrlDelete} startIcon={<DeleteIcon />} color="error">
+            Delete
+          </Button>
+          <Button onClick={handleUrlDialogClose}>Cancel</Button>
+          <Button onClick={handleUrlConfirm}>Confirm</Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
