@@ -1,29 +1,17 @@
 import React, { useState } from 'react';
-import { Typography, Container, TextField, Button, Box, Alert, Paper, useTheme } from '@mui/material';
+import { Typography, Container, TextField, Button, Box, Paper, useTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import LockResetIcon from '@mui/icons-material/LockReset';
 
 function PasswordReset() {
   const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
   const navigate = useNavigate();
   const theme = useTheme();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
-    setMessage('');
-    
-    // Simulating password reset functionality
     if (email) {
-      // In a real implementation, you would call your API here
-      setMessage('If an account exists for ' + email + ', an email will be sent with further instructions.');
-      setTimeout(() => {
-        navigate('/login');
-      }, 3000);
-    } else {
-      setError('Please enter a valid email address.');
+      navigate('/password-reset-confirmation', { state: { email } });
     }
   };
 
@@ -60,8 +48,6 @@ function PasswordReset() {
           Enter your email address and we'll send you instructions to reset your password.
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%' }}>
-          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-          {message && <Alert severity="success" sx={{ mb: 2 }}>{message}</Alert>}
           <TextField
             margin="normal"
             required
