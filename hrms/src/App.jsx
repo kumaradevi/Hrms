@@ -78,7 +78,7 @@ function App() {
             flexGrow: 1,
             p:3,
             mt: user ? 12 : 0,
-            ml: user ? 30 : 0,
+            ml: user ? 2 : 0,
             minWidth: 0,
            
             height:"100vh"
@@ -101,7 +101,7 @@ function App() {
                 element={<PasswordResetConfirmation />}
               />
               <Route
-                path="/employees"
+                path="/employee-directory"
                 element={
                   user ? <EmployeeDirectory /> : <Navigate to="/login" />
                 }
@@ -111,11 +111,7 @@ function App() {
                 element={user ? <EmployeeProfile /> : <Navigate to="/login" />}
               />
               <Route
-                path="/employees/add"
-                element={user ? <AddEditEmployee /> : <Navigate to="/login" />}
-              />
-              <Route
-                path="/employees/edit/:id"
+                path="/add-edit-employee"
                 element={user ? <AddEditEmployee /> : <Navigate to="/login" />}
               />
               <Route
@@ -125,69 +121,69 @@ function App() {
                 }
               />
               <Route
-                path="/leave/request"
+                path="/leave-request"
                 element={user ? <LeaveRequest /> : <Navigate to="/login" />}
               />
               <Route
-                path="/leave/approval"
+                path="/leave-approval"
                 element={user ? <LeaveApproval /> : <Navigate to="/login" />}
               />
               <Route
-                path="/leave/history"
+                path="/leave-history"
                 element={user ? <LeaveHistory /> : <Navigate to="/login" />}
               />
               <Route
-                path="/payroll"
+                path="/payroll-dashboard"
                 element={user ? <PayrollDashboard /> : <Navigate to="/login" />}
               />
               <Route
-                path="/payroll/records"
+                path="/payroll-records"
                 element={user ? <PayrollRecords /> : <Navigate to="/login" />}
               />
               <Route
-                path="/payroll/report"
+                path="/payroll-reports"
                 element={user ? <PayrollReport /> : <Navigate to="/login" />}
               />
               <Route
-                path="/performance/review"
+                path="/performance-review"
                 element={
                   user ? <PerformanceReview /> : <Navigate to="/login" />
                 }
               />
               <Route
-                path="/performance/analytics"
+                path="/performance-analytics"
                 element={
                   user ? <PerformanceAnalytics /> : <Navigate to="/login" />
                 }
               />
               <Route
-                path="/reports/employees"
+                path="/employee-reports"
                 element={user ? <EmployeeReports /> : <Navigate to="/login" />}
               />
               <Route
-                path="/reports/leave"
+                path="/leave-reports"
                 element={user ? <LeaveReports /> : <Navigate to="/login" />}
               />
               <Route
-                path="/reports/payroll"
+                path="/payroll-reports"
                 element={user ? <PayrollReports /> : <Navigate to="/login" />}
               />
               <Route
-                path="/reports/performance"
+                path="/performance-reports"
                 element={
                   user ? <PerformanceReports /> : <Navigate to="/login" />
                 }
               />
               <Route
-                path="/settings/user"
+                path="user-settings"
                 element={user ? <UserSettings /> : <Navigate to="/login" />}
               />
               <Route
-                path="/settings/admin"
+                path="/admin-settings"
                 element={user ? <AdminSettings /> : <Navigate to="/login" />}
               />
               <Route
-                path="/help"
+                path="/help-center"
                 element={user ? <HelpCenter /> : <Navigate to="/login" />}
               />
               <Route

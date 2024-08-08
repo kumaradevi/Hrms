@@ -53,7 +53,7 @@ function Sidebar() {
     {
       name: "Dashboard",
       icon: <DashboardIcon />,
-      link: "/dashboard",
+      link: "/",
     },
     {
       name: "Employee Management",
