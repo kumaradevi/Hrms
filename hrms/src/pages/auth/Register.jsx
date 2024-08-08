@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Typography, Container, TextField, Button, Box, Alert, Paper, useTheme, useMediaQuery, Grid, MenuItem, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Typography, Container, TextField, Button, Box, Alert, Paper, useTheme, useMediaQuery, Grid, MenuItem } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import BadgeIcon from '@mui/icons-material/Badge';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import DeleteIcon from '@mui/icons-material/Delete';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 function Register() {
   const navigate = useNavigate();
@@ -18,16 +17,18 @@ function Register() {
     lastName: '',
     email: '',
     role: '',
-    profilePictureUrl: '',
+    profilePicture: null,
     password: '',
     confirmPassword: '',
   });
   const [error, setError] = useState('');
-  const [openUrlDialog, setOpenUrlDialog] = useState(false);
-  const [tempUrl, setTempUrl] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, profilePicture: e.target.files[0] });
   };
 
   const handleSubmit = (e) => {
@@ -42,26 +43,6 @@ function Register() {
       console.log('Registration data:', formData);
       navigate("/login");
     }
-  };
-
-  const handleUrlDialogOpen = () => {
-    setOpenUrlDialog(true);
-    setTempUrl(formData.profilePictureUrl);
-  };
-
-  const handleUrlDialogClose = () => {
-    setOpenUrlDialog(false);
-  };
-
-  const handleUrlConfirm = () => {
-    setFormData({ ...formData, profilePictureUrl: tempUrl });
-    setOpenUrlDialog(false);
-  };
-
-  const handleUrlDelete = () => {
-    setFormData({ ...formData, profilePictureUrl: '' });
-    setTempUrl('');
-    setOpenUrlDialog(false);
   };
 
   const roles = [
@@ -208,12 +189,18 @@ function Register() {
             <Grid item xs={6}>
               <Button
                 variant="outlined"
-                startIcon={<AddPhotoAlternateIcon />}
-                onClick={handleUrlDialogOpen}
+                component="label"
+                startIcon={<CloudUploadIcon />}
                 fullWidth
                 sx={{ mt: 2, height: '56px' }}
               >
-                {formData.profilePictureUrl ? 'Change Profile URL' : 'Add Profile URL'}
+                Upload Profile Picture
+                <input
+                  type="file"
+                  hidden
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
               </Button>
             </Grid>
           </Grid>
@@ -275,30 +262,6 @@ function Register() {
           </Box>
         </Box>
       </Paper>
-      
-      <Dialog open={openUrlDialog} onClose={handleUrlDialogClose}>
-        <DialogTitle>Add Profile Picture URL</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="profilePictureUrl"
-            label="Profile Picture URL"
-            type="url"
-            fullWidth
-            variant="standard"
-            value={tempUrl}
-            onChange={(e) => setTempUrl(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleUrlDelete} startIcon={<DeleteIcon />} color="error">
-            Delete
-          </Button>
-          <Button onClick={handleUrlDialogClose}>Cancel</Button>
-          <Button onClick={handleUrlConfirm}>Confirm</Button>
-        </DialogActions>
-      </Dialog>
     </Container>
   );
 }
