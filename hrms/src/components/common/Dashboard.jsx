@@ -34,5 +34,5 @@ function Dashboard({ title, items }) {
     </div>
   );
 }
-
+    
 export default Dashboard;

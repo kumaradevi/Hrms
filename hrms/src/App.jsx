@@ -32,6 +32,9 @@ import NotificationCenter from "./pages/notification/NotificationCenter";
 import ErrorPage from "./pages/error/ErrorPage";
 import MaintenancePage from "./pages/maintenance/MaintenancePage";
 
+
+// import { onAuthStateChanged } from 'firebase/auth';
+
 function App() {
   const [user, setUser] = useState(null);
   const [darkTheme, setDarkTheme] = useState(false);
