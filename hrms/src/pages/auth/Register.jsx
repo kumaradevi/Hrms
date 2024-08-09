@@ -6,6 +6,12 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import BadgeIcon from '@mui/icons-material/Badge';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { auth, db } from '../../config/Firebase'; // Import the auth and db instances from the firebase file
+import { createUserWithEmailAndPassword } from 'firebase/auth'; // Import the createUserWithEmailAndPassword function
+import { setDoc, doc } from 'firebase/firestore'; // Import the setDoc and doc functions from Firestore
 
 function Register() {
   const navigate = useNavigate();
@@ -23,7 +29,7 @@ function Register() {
   });
   const [error, setError] = useState('');
 
-  const handleChange = (e) => {
+ const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -31,7 +37,7 @@ function Register() {
     setFormData({ ...formData, profilePicture: e.target.files[0] });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -39,11 +45,31 @@ function Register() {
       setError('Passwords do not match');
       return;
     }
-    if (formData.firstName && formData.lastName && formData.email && formData.role && formData.password && formData.confirmPassword) {
-      console.log('Registration data:', formData);
-      navigate("/login");
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+
+      const userId = userCredential.user.uid;
+      await setDoc(doc(db, 'users', userId), {
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        role: formData.role,
+        profilePicture: formData.profilePicture,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      console.log(`${formData.role} has been registered successfully`);
+      navigate('/login');
+    } catch (error) {
+      setError('Failed to register. Please try again.');
     }
   };
+
 
   const roles = [
     { value: 'admin', label: 'Admin', icon: <AdminPanelSettingsIcon /> },
@@ -52,6 +78,7 @@ function Register() {
   ];
 
   return (
+    <>
     <Container component="main" maxWidth="xs">
       <Paper
         elevation={3}
@@ -263,6 +290,9 @@ function Register() {
         </Box>
       </Paper>
     </Container>
+
+    <ToastContainer/>
+    </>
   );
 }
 

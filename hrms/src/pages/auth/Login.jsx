@@ -13,6 +13,13 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { auth } from '../../config/Firebase'; 
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
+
 
 function Login({ login }) {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -25,18 +32,22 @@ function Login({ login }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    if (formData.email === 'admin' && formData.password === '123') {
+
+    try {
+      await signInWithEmailAndPassword(auth, formData.email, formData.password);
       login({ email: formData.email });
       navigate('/');
-    } else {
+    } catch (error) {
       setError('Invalid email or password');
     }
   };
 
+
   return (
+    <> 
     <Container component="main" maxWidth="xs">
       <Paper 
         elevation={3}
@@ -148,6 +159,9 @@ function Login({ login }) {
         </Box>
       </Paper>
     </Container>
+
+    <ToastContainer/>
+    </>
   );
 }
 

@@ -35,11 +35,14 @@ import PersonIcon from "@mui/icons-material/Person";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import DescriptionIcon from "@mui/icons-material/Description";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from '../../config/Firebase';
+import { signOut } from 'firebase/auth';
 
 const drawerWidth = 260;
 
 function Sidebar() {
+  const navigate = useNavigate();
   const [openMenus, setOpenMenus] = useState({});
 
   const handleMenuClick = (menuName) => {
@@ -47,6 +50,15 @@ function Sidebar() {
       ...prevState,
       [menuName]: !prevState[menuName],
     }));
+  };
+
+  const handleLogout = async () => {
+    // try {
+      // await signOut(auth);
+      navigate('/login');
+    // } catch (error) {
+    //   console.error('Error logging out:', error);
+    // }
   };
 
   const menuItems = [
@@ -124,7 +136,7 @@ function Sidebar() {
     {
       name: "Logout",
       icon: <ExitToAppIcon />,
-      link: "/logout",
+      onClick: handleLogout,
     },
   ];
 
@@ -189,7 +201,6 @@ function Sidebar() {
           ))}
         </List>
       </Box>
-
     </Drawer>
   );
 }
