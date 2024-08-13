@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { auth } from '../../config/Firebase'; 
@@ -160,7 +159,6 @@ function Login({ login }) {
       </Paper>
     </Container>
 
-    <ToastContainer/>
     </>
   );
 }

@@ -6,7 +6,6 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import BadgeIcon from '@mui/icons-material/Badge';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { auth, db } from '../../config/Firebase'; // Import the auth and db instances from the firebase file
@@ -290,8 +289,6 @@ function Register() {
         </Box>
       </Paper>
     </Container>
-
-    <ToastContainer/>
     </>
   );
 }
