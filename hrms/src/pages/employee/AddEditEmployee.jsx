@@ -10,7 +10,7 @@ function AddEditEmployee() {
     { name: 'position', label: 'Position' },
     { name: 'department', label: 'Department' },
     { name: 'phone', label: 'Phone' },
-    { name: 'hireDate', label: 'Hire Date', type: 'date' },
+    { name: 'hireDate', type: 'date' },
   ];
 
   const handleSubmit = (data) => {
