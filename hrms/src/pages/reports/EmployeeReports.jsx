@@ -101,3 +101,5 @@ function EmployeeReports() {
 }
 
 export default EmployeeReports;
+
+// npm install jspdf
