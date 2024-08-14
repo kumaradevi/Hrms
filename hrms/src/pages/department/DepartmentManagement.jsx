@@ -21,6 +21,9 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
 
 function createData(Id, Department, Manager, EmployeeCount) {
   return {
@@ -32,17 +35,16 @@ function createData(Id, Department, Manager, EmployeeCount) {
 }
 
 const rows = [
-createData(1, 'IT', 'John Doe', 15),
-createData(2, 'HR', 'Jane Doe', 10),
-createData(3, 'Finance', 'John Smith', 20),
-createData(4, 'Marketing', 'Jane Smith', 25),
-createData(5, 'Sales', 'John Johnson', 30),
-createData(6, 'Research & Development', 'Emily Brown', 18),
-createData(7, 'Customer Support', 'Michael Davis', 22),
-createData(8, 'Legal', 'Sarah Wilson', 12),
-createData(9, 'Procurement', 'David Miller', 28),
-createData(10, 'Operations', 'Olivia Taylor', 35),
-
+  createData(1, 'IT', 'John Doe', 15),
+  createData(2, 'HR', 'Jane Doe', 10),
+  createData(3, 'Finance', 'John Smith', 20),
+  createData(4, 'Marketing', 'Jane Smith', 25),
+  createData(5, 'Sales', 'John Johnson', 30),
+  createData(6, 'Research & Development', 'Emily Brown', 18),
+  createData(7, 'Customer Support', 'Michael Davis', 22),
+  createData(8, 'Legal', 'Sarah Wilson', 12),
+  createData(9, 'Procurement', 'David Miller', 28),
+  createData(10, 'Operations', 'Olivia Taylor', 35),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -72,8 +74,8 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'Id', numeric: false, disablePadding: true, label: 'ID' },
-  { id: 'Depname', numeric: false, disablePadding: false, label: 'Department' },
+  { id: 'Id', numeric: true, disablePadding: true, label: 'ID' },  // Changed disablePadding to true
+  { id: 'Department', numeric: false, disablePadding: false, label: 'Department' },
   { id: 'Manager', numeric: false, disablePadding: false, label: 'Manager' },
   { id: 'EmployeeCount', numeric: true, disablePadding: false, label: 'Employee Count' },
 ];
@@ -94,15 +96,15 @@ function EnhancedTableHead(props) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              'aria-label': 'select all employees',
+              'aria-label': 'select all departments',
             }}
           />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            align='left'
+            padding={headCell.disablePadding ? 'none' : 'normal'}  // Adjusted padding for ID column
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -134,7 +136,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
+  const { numSelected, onSearchChange } = props;
 
   return (
     <Toolbar
@@ -163,9 +165,23 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Employees
+          Departments
         </Typography>
       )}
+
+      <TextField
+        placeholder="Search"
+        variant="outlined"
+        size="small"
+        onChange={onSearchChange}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
@@ -186,15 +202,17 @@ function EnhancedTableToolbar(props) {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  onSearchChange: PropTypes.func.isRequired,
 };
 
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('Name');
+  const [orderBy, setOrderBy] = React.useState('Department');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [searchTerm, setSearchTerm] = React.useState('');
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -244,23 +262,23 @@ export default function EnhancedTable() {
     setDense(event.target.checked);
   };
 
-  const isSelected = (id) => selected.indexOf(id) !== -1;
+  const isSelected = (Id) => selected.indexOf(Id) !== -1;
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(rows, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
-      ),
-    [order, orderBy, page, rowsPerPage],
+  const filteredRows = rows.filter((row) =>
+    Object.values(row).some((value) =>
+      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    )
   );
+
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredRows.length) : 0;
 
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          onSearchChange={(e) => setSearchTerm(e.target.value)}
+        />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -273,46 +291,43 @@ export default function EnhancedTable() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={filteredRows.length}
             />
             <TableBody>
-              {visibleRows.map((row, index) => {
-                const isItemSelected = isSelected(row.Id);
-                const labelId = `enhanced-table-checkbox-${index}`;
+              {stableSort(filteredRows, getComparator(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  const isItemSelected = isSelected(row.Id);
+                  const labelId = `enhanced-table-checkbox-${index}`;
 
-                return (
-                  <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row.Id)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row.Id}
-                    selected={isItemSelected}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        color="primary"
-                        checked={isItemSelected}
-                        inputProps={{
-                          'aria-labelledby': labelId,
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="row"
-                      padding="none"
+                  return (
+                    <TableRow
+                      hover
+                      onClick={(event) => handleClick(event, row.Id)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row.Id}
+                      selected={isItemSelected}
                     >
-                      {row.Id}
-                    </TableCell>
-                    <TableCell align="left">{row.Department}</TableCell>
-                    <TableCell align="left">{row.Manager}</TableCell>
-                    <TableCell align="left">{row.EmployeeCount}</TableCell>
-                  </TableRow>
-                );
-              })}
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          color="primary"
+                          checked={isItemSelected}
+                          inputProps={{
+                            'aria-labelledby': labelId,
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell component="th" id={labelId} scope="row" padding="none">
+                        {row.Id}
+                      </TableCell>
+                      <TableCell align="left">{row.Department}</TableCell>
+                      <TableCell align="left">{row.Manager}</TableCell>
+                      <TableCell align="left">{row.EmployeeCount}</TableCell>
+                    </TableRow>
+                  );
+                })}
               {emptyRows > 0 && (
                 <TableRow
                   style={{
@@ -328,7 +343,7 @@ export default function EnhancedTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={filteredRows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -342,4 +357,3 @@ export default function EnhancedTable() {
     </Box>
   );
 }
-
