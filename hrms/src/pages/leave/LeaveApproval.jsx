@@ -68,7 +68,7 @@ const LeaveApproval = () => {
 
   useEffect(() => {
     const fetchLeaveRequests = async () => {
-      const querySnapshot = await getDocs(collection(db, 'leaverequests'));
+      const querySnapshot = await getDocs(collection(db, 'leaveRequests'));
       const requests = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -80,7 +80,7 @@ const LeaveApproval = () => {
   }, []);
 
   const handleApproval = async (id) => {
-    const requestDoc = doc(db, 'leaverequests', id);
+    const requestDoc = doc(db, 'leaveRequests', id);
     await updateDoc(requestDoc, { status: 'Approved' });
     setLeaveRequests((prevState) =>
       prevState.map((req) =>
@@ -90,7 +90,7 @@ const LeaveApproval = () => {
   };
 
   const handleRejection = async (id) => {
-    const requestDoc = doc(db, 'leaverequests', id);
+    const requestDoc = doc(db, 'leaveRequests', id);
     await updateDoc(requestDoc, { status: 'Rejected' });
     setLeaveRequests((prevState) =>
       prevState.map((req) =>

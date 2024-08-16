@@ -57,6 +57,7 @@ function App() {
 
   const login = (userData) => {
     setUser(userData);
+    console.log(userData)
   };
 
   const logout = () => {
