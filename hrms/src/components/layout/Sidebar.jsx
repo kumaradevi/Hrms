@@ -20,8 +20,6 @@ import HelpIcon from "@mui/icons-material/Help";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import FolderIcon from "@mui/icons-material/Folder";
-import EditIcon from "@mui/icons-material/Edit";
 import BusinessIcon from "@mui/icons-material/Business";
 import SendIcon from "@mui/icons-material/Send";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -52,14 +50,24 @@ function Sidebar() {
     }));
   };
 
+
   const handleLogout = async () => {
-    // try {
-      // await signOut(auth);
+    console.log('Logout button clicked'); // Add this line to check if the function is triggered
+    try {
+      await signOut(auth);
       navigate('/login');
-    // } catch (error) {
-    //   console.error('Error logging out:', error);
-    // }
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
+  
+  
+
+  // const handleLogout = () => {
+  //   logout();
+  //   handleClose();
+  //   navigate('/login');
+  // };
 
   const menuItems = [
     {
@@ -70,11 +78,12 @@ function Sidebar() {
     {
       name: "Employee Management",
       icon: <PeopleIcon />,
-      submenus: [
-        { name: "Employee Directory", icon: <FolderIcon />, link: "/employee-directory" },
-        { name: "Add/Edit Employee", icon: <EditIcon />, link: "/add-edit-employee" },
-        { name: "Departments", icon: <BusinessIcon />, link: "/departments" },
-      ],
+      link: "/employee-directory" ,
+    },
+    {
+      name: "Department Management",
+      icon: <BusinessIcon />,
+      link: "/departments",
     },
     {
       name: "Leave Management",
