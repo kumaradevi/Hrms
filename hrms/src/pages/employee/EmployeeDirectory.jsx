@@ -16,14 +16,20 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import EditIcon from '@mui/icons-material/Edit';
 
 function createData(Id, Name, Department, Positions, Email) {
   return {
@@ -85,6 +91,7 @@ const headCells = [
   { id: 'Department', numeric: false, disablePadding: false, label: 'Department' },
   { id: 'Positions', numeric: false, disablePadding: false, label: 'Positions' },
   { id: 'Email', numeric: false, disablePadding: false, label: 'Email' },
+  { id: 'actions', numeric: false, disablePadding: false, label: 'Actions' },
 ];
 
 function EnhancedTableHead(props) {
@@ -96,7 +103,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell padding="checkbox" sx={{ padding: '0 4px' }}>
           <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -105,14 +112,16 @@ function EnhancedTableHead(props) {
             inputProps={{
               'aria-label': 'select all employees',
             }}
+            size="small"
           />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            padding='normal'
             sortDirection={orderBy === headCell.id ? order : false}
+            sx={{ padding: '4px' }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -142,8 +151,80 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
+function NewEmployeeForm({ onClose, onSubmit }) {
+  const [newEmployee, setNewEmployee] = React.useState({
+    Name: '',
+    Department: '',
+    Positions: '',
+    Email: '',
+  });
+
+  const handleChange = (event) => {
+    setNewEmployee({ ...newEmployee, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = () => {
+    onSubmit(newEmployee);
+    onClose();
+  };
+
+  return (
+    <>
+      <DialogTitle>Add New Employee</DialogTitle>
+      <DialogContent>
+        <TextField
+          autoFocus
+          margin="dense"
+          name="Name"
+          label="Name"
+          type="text"
+          fullWidth
+          variant="standard"
+          value={newEmployee.Name}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="dense"
+          name="Department"
+          label="Department"
+          type="text"
+          fullWidth
+          variant="standard"
+          value={newEmployee.Department}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="dense"
+          name="Positions"
+          label="Position"
+          type="text"
+          fullWidth
+          variant="standard"
+          value={newEmployee.Positions}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="dense"
+          name="Email"
+          label="Email"
+          type="email"
+          fullWidth
+          variant="standard"
+          value={newEmployee.Email}
+          onChange={handleChange}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={handleSubmit}>Add</Button>
+      </DialogActions>
+    </>
+  );
+}
+
 function EnhancedTableToolbar(props) {
-  const { numSelected, onSearchChange } = props;
+  const { numSelected, onSearchChange, onAddNewEmployee, onDeleteSelected } = props;
+  const [openNewEmployeeModal, setOpenNewEmployeeModal] = React.useState(false);
 
   return (
     <Toolbar
@@ -157,14 +238,21 @@ function EnhancedTableToolbar(props) {
       }}
     >
       {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
+        <>
+          <Tooltip title="Delete">
+            <IconButton onClick={onDeleteSelected}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+          <Typography
+            sx={{ flex: '1 1 100%' }}
+            color="inherit"
+            variant="subtitle1"
+            component="div"
+          >
+            {numSelected} selected
+          </Typography>
+        </>
       ) : (
         <Typography
           sx={{ flex: '1 1 100%' }}
@@ -190,19 +278,22 @@ function EnhancedTableToolbar(props) {
         }}
       />
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
+      <Button variant="contained"
+        onClick={() => setOpenNewEmployeeModal(true)}
+        sx={{ ml: 2, fontSize: '0.85rem', padding: '6px 10px' }}
+      >
+        + Add 
+      </Button>
+
+      <Dialog open={openNewEmployeeModal} onClose={() => setOpenNewEmployeeModal(false)}>
+        <NewEmployeeForm 
+          onClose={() => setOpenNewEmployeeModal(false)} 
+          onSubmit={(newEmployee) => {
+            onAddNewEmployee(newEmployee);
+            setOpenNewEmployeeModal(false);
+          }} 
+        />
+      </Dialog>
     </Toolbar>
   );
 }
@@ -210,6 +301,8 @@ function EnhancedTableToolbar(props) {
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onSearchChange: PropTypes.func.isRequired,
+  onAddNewEmployee: PropTypes.func.isRequired,
+  onDeleteSelected: PropTypes.func.isRequired,
 };
 
 export default function EnhancedTable() {
@@ -217,9 +310,12 @@ export default function EnhancedTable() {
   const [orderBy, setOrderBy] = React.useState('Name');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(30);
   const [searchTerm, setSearchTerm] = React.useState('');
+  const [employeeData, setEmployeeData] = React.useState(rows);
+  const [editingId, setEditingId] = React.useState(null);
+  const [editedEmployee, setEditedEmployee] = React.useState({});
+  const [dense, setDense] = React.useState(true);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -229,7 +325,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.Id);
+      const newSelected = employeeData.map((n) => n.Id);
       setSelected(newSelected);
       return;
     }
@@ -265,18 +361,54 @@ export default function EnhancedTable() {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
     setPage(0);
   };
 
+  const handleAddNewEmployee = (newEmployee) => {
+    const newId = Math.max(...employeeData.map(e => e.Id)) + 1;
+    setEmployeeData([...employeeData, { ...newEmployee, Id: newId }]);
+  };
+
+  const handleEditEmployee = (id) => {
+    setEditingId(id);
+    setEditedEmployee(employeeData.find(employee => employee.Id === id));
+  };
+
+  const handleSaveEdit = () => {
+    setEmployeeData(employeeData.map(employee => 
+      employee.Id === editingId ? { ...employee, ...editedEmployee } : employee
+    ));
+    setEditingId(null);
+    setEditedEmployee({});
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditedEmployee({});
+  };
+
+  const handleEditChange = (event) => {
+    setEditedEmployee({ ...editedEmployee, [event.target.name]: event.target.value });
+  };
+
+  const handleChangeDense = (event) => {
+    setDense(event.target.checked);
+  };
+
+  const handleDeleteEmployee = (id) => {
+    setEmployeeData(employeeData.filter(employee => employee.Id !== id));
+  };
+
+  const handleDeleteSelected = () => {
+    setEmployeeData(employeeData.filter(employee => !selected.includes(employee.Id)));
+    setSelected([]);
+  };
+
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
-  const filteredRows = rows.filter((row) =>
+  const filteredRows = employeeData.filter((row) =>
     Object.values(row).some((value) =>
       value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
@@ -295,14 +427,19 @@ export default function EnhancedTable() {
   );
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', fontSize: '0.85rem' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} onSearchChange={handleSearchChange} />
+        <EnhancedTableToolbar 
+          numSelected={selected.length} 
+          onSearchChange={handleSearchChange}
+          onAddNewEmployee={handleAddNewEmployee}
+          onDeleteSelected={handleDeleteSelected}
+        />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size="small"
           >
             <EnhancedTableHead
               numSelected={selected.length}
@@ -316,6 +453,7 @@ export default function EnhancedTable() {
               {visibleRows.map((row, index) => {
                 const isItemSelected = isSelected(row.Id);
                 const labelId = `enhanced-table-checkbox-${index}`;
+                const isEditing = editingId === row.Id;
 
                 return (
                   <TableRow
@@ -326,8 +464,12 @@ export default function EnhancedTable() {
                     tabIndex={-1}
                     key={row.Id}
                     selected={isItemSelected}
+                    sx={{ 
+                      '&:nth-of-type(odd)': { backgroundColor: '#f5f5f5' },
+                      '&:nth-of-type(even)': { backgroundColor: '#ffffff' },
+                    }}
                   >
-                    <TableCell padding="checkbox">
+                    <TableCell padding="checkbox" sx={{ padding: '0 8px' }}>
                       <Checkbox
                         color="primary"
                         checked={isItemSelected}
@@ -340,21 +482,29 @@ export default function EnhancedTable() {
                       component="th"
                       id={labelId}
                       scope="row"
-                      padding="none"
+                      sx={{ fontSize: '0.8rem', padding: '8px' }}
                     >
                       {row.Id}
                     </TableCell>
-                    <TableCell align="left">{row.Name}</TableCell>
-                    <TableCell align="left">{row.Department}</TableCell>
-                    <TableCell align="left">{row.Positions}</TableCell>
-                    <TableCell align="left">{row.Email}</TableCell>
+                    <TableCell align="left" sx={{ fontSize: '0.8rem', padding: '8px' }}>{row.Name}</TableCell>
+                    <TableCell align="left" sx={{ fontSize: '0.8rem', padding: '8px' }}>{row.Department}</TableCell>
+                    <TableCell align="left" sx={{ fontSize: '0.8rem', padding: '8px' }}>{row.Positions}</TableCell>
+                    <TableCell align="left" sx={{ fontSize: '0.8rem', padding: '8px' }}>{row.Email}</TableCell>
+                    <TableCell align="left" sx={{ fontSize: '0.8rem', padding: '8px' }}>
+                      <IconButton onClick={() => handleEditEmployee(row.Id)} size="small">
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton onClick={() => handleDeleteEmployee(row.Id)} size="small">
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 );
               })}
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: 33 * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -364,13 +514,14 @@ export default function EnhancedTable() {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[15, 30, 50]}
           component="div"
           count={filteredRows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{ fontSize: '0.85rem' }}
         />
       </Paper>
       <FormControlLabel

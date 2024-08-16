@@ -10,7 +10,6 @@ import PasswordReset from "./pages/auth/PasswordReset";
 import PasswordResetConfirmation from "./pages/auth/PasswordResetConfirmation";
 import EmployeeDirectory from "./pages/employee/EmployeeDirectory";
 import EmployeeProfile from "./pages/employee/EmployeeProfile";
-import AddEditEmployee from "./pages/employee/AddEditEmployee";
 import DepartmentManagement from "./pages/department/DepartmentManagement";
 import LeaveRequest from "./pages/leave/LeaveRequest";
 import LeaveApproval from "./pages/leave/LeaveApproval";
@@ -109,10 +108,6 @@ function App() {
               <Route
                 path="/employees/:id"
                 element={user ? <EmployeeProfile /> : <Navigate to="/login" />}
-              />
-              <Route
-                path="/add-edit-employee"
-                element={user ? <AddEditEmployee /> : <Navigate to="/login" />}
               />
               <Route
                 path="/departments"
