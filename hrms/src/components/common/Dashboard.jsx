@@ -15,7 +15,7 @@ function Dashboard({ title, items }) {
                 p: 2,
                 display: 'flex',
                 flexDirection: 'column',
-                height: 140,
+                height: 120,
               }}
             >
               <Typography component="h2" variant="h6" color="primary" gutterBottom>
@@ -31,6 +31,7 @@ function Dashboard({ title, items }) {
           </Grid>
         ))}
       </Grid>
+
     </div>
   );
 }
